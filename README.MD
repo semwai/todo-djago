@@ -21,3 +21,7 @@
 * Python + Django + Sql = backend
 * Vue + Bootstrap = frontend
 * В качестве БД поначалу годиться использование sqlite, далее миграция на что-то более серьёзное. 
+
+## БД
+Предполагаемая база данных \
+![1](docs\todo-django-db.svg)
