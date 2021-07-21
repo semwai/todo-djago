@@ -24,4 +24,4 @@
 
 ## БД
 Предполагаемая база данных \
-![1](docs\todo-django-db.svg)
+![1](docs/todo-django-db.svg)
