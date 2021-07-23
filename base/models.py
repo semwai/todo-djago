@@ -10,10 +10,16 @@ class Project(models.Model):
     create_date = models.DateField()
     group = models.ForeignKey(UserGroup, on_delete = models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 class TaskGroup(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     project =  models.ForeignKey(Project, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 class Task(models.Model):
     name = models.CharField(max_length=100)
@@ -21,4 +27,7 @@ class Task(models.Model):
     create_date = models.DateField()
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     group = models.ForeignKey(TaskGroup, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
