@@ -1,17 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Index{% endblock title %}
-{% block header %}Главная{% endblock header %}
+{% block header %}{% endblock header %}
+
 {% block content %}
+<div class="row">
+    <div class="col">
+        <ul class="list">
+            {% for project in projects %}
+            <li class="list-group-item">{{ project }}</li>
+            {% empty %}
+            <h2>У вас нет активных проектов</h2>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col">
+        123
+    </div>
+</div>
 
-<p>{{ user }}</p>
-
-
-<ul class="list">
-    {% for project in projects %}
-    <li class="list-group-item">{{ project }}</li>
-    {% empty %}
-    <h2>У вас нет активных проектов</h2>
-    {% endfor %}
-</ul>
 
 {% endblock content %}

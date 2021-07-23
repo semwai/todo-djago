@@ -5,13 +5,16 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 
 from .forms import LoginForm
+from . import models
+
 
 # Create your views here.
 @login_required(login_url='login')
 def index(request):
     user = request.user
-    projects = []#[1, 2, 3, 4]
+    projects = models.Project.objects.all()
     return render(request, "index.html", {"user": user, "projects": projects})
+
 
 @require_http_methods(["GET", "POST"])
 def login(request):
@@ -28,4 +31,4 @@ def login(request):
             return HttpResponseRedirect('/')
     else:
         loginform = LoginForm()
-        return render(request, "login.html", {"form": loginform} )
+        return render(request, "login.html", {"form": loginform})

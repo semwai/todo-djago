@@ -19,7 +19,7 @@ from base import views
 from django.contrib.auth import urls
 
 urlpatterns = [
-    #path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', views.index),
     path('login/', views.login,  name='login'),
 
