@@ -5,14 +5,19 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 
 from .forms import LoginForm
-from . import models
+from .models import UserGroup, Project
 
 
 # Create your views here.
 @login_required(login_url='login')
 def index(request):
     user = request.user
-    projects = models.Project.objects.all()
+
+    try:
+        projects = [ug.project for ug in UserGroup.objects.filter(user_id=user.id)]
+    except UserGroup.DoesNotExist:
+        projects = None
+    #print(projects[0])
     return render(request, "index.html", {"user": user, "projects": projects})
 
 
