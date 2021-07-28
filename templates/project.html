@@ -14,8 +14,12 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="text-center">{{ group.name }}</h4>
-                                        {{ group.description }}
-                                        <hr>
+                                    {{ group.description }}
+                                    <hr>
+                                    ....
+                                    <br>
+
+                                    <h4 class="text-center"><a href="/task/{{ project.id }}/{{ group.id }}"><span class="badge bg-success">+</span></a></h4>
                                 </div>
                             </div>
                         </div>
@@ -23,23 +27,7 @@
                         <div class="col-lg-6 col-sm-12 mb-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="text-center">Добавить доску</h4>
-                                    <form method="POST" href="/project/task/add">
-                                        {% csrf_token %}
-                                        {% for field in TaskGroupForm %}
-                                            <div class="form-group">
-                                                {% if field.is_hidden %}
-                                                {% else %}
-                                                    {{ field.label }}
-                                                    {{ field }}
-                                                {% endif %}
-
-                                            </div>
-                                        {% endfor %}
-                                        <br>
-                                        <input type="submit" value="Создать" class="form-control">
-                                    </form>
-
+                                    <a href="/taskgroup/{{ project.id }}"><button  class="form-control">Создать</button></a>
                                 </div>
                             </div>
                         </div>

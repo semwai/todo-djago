@@ -12,12 +12,10 @@ from .models import UserGroup, Project
 @login_required(login_url='login')
 def index(request):
     user = request.user
-
     try:
         projects = [ug.project for ug in UserGroup.objects.filter(user_id=user.id)]
     except UserGroup.DoesNotExist:
         projects = None
-    #print(projects[0])
     return render(request, "index.html", {"user": user, "projects": projects})
 
 
@@ -35,5 +33,5 @@ def login(request):
             auth_login(request, user)
             return HttpResponseRedirect('/')
     else:
-        loginform = LoginForm()
-        return render(request, "login.html", {"form": loginform})
+        form = LoginForm()
+        return render(request, "login.html", {"form": form})

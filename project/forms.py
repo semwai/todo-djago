@@ -4,7 +4,7 @@ from base.models import Project
 class TaskGroupForm(forms.Form):
     name = forms.CharField(label="Название")
     description = forms.CharField(label="Описание", widget=forms.Textarea)
-    Project = forms.IntegerField(widget=forms.HiddenInput())
+    project_id = forms.IntegerField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(TaskGroupForm, self).__init__(*args, **kwargs)

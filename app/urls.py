@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from base import views as base
 from project import views as project
-from django.contrib.auth import urls
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', base.index),
     path('login/', base.login, name='login'),
     path('project/<int:id>', project.index),
+    path('taskgroup/<int:project_id>', project.task_group),
+    path('task/<int:project_id>/<int:group_id>', project.task)
     # path('accounts/', include(urls))
 ]
