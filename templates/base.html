@@ -17,7 +17,7 @@
 </style>
 <body >
     <h1>{% block header %}{% endblock header %}</h1>
-    <div class="container">{% block content%}{% endblock content %}</div>
+    {% block content%}{% endblock content %}
     <footer>
         <div class="container"> 
             <!--{% now "Y" %}-->

@@ -3,21 +3,21 @@
 {% block header %}{% endblock header %}
 
 {% block content %}
+<div class="container">
 <div class="row justify-content-center">
     <div class="col-lg-6 col-sm-12">
         {% if projects %}
         <h1 class="text-center alert">Ваши проекты</h1>
         <ul class="list">
             {% for project in projects %}
-            <a href="/project/{{ project.id }}"><li class="list-group-item">{{ project }}</li></a>
+            <a href="{{ project.get_absolute_url }}"><li class="list-group-item">{{ project }}</li></a>
             {% endfor %}
         </ul>
         {% else %}
             <h2 class="text-center">У вас нет активных проектов</h2>
         {% endif %}
     </div>
-
 </div>
-
+</div>
 
 {% endblock content %}
