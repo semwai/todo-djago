@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
-from base.models import Project, UserGroup, TaskGroup
+from base.models import Project, UserGroup, TaskGroup, Task
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from .forms import TaskGroupForm
 
@@ -16,15 +16,17 @@ def index(request, id):
     # Присутствует ли пользователь в проекте
     if len(UserGroup.objects.filter(user_id=user.id, project_id=id)) == 0:
         raise PermissionDenied()
-
     command = [group.user for group in UserGroup.objects.filter(project_id=id)]
-
-    groups = TaskGroup.objects.filter(project_id=id)
-
+    tasks = Task.objects.filter(group__project_id=id)
+    # Те группы, у которых нет своих задач
+    empty_groups = TaskGroup.objects\
+        .filter(project__id=2)\
+        .exclude(id__in=[task.group_id for task in Task.objects.all()])
     data = {"user": user,
             "project": project,
             "command": command,
-            "groups": groups,
+            "tasks": tasks,
+            "empty_groups": empty_groups
             }
 
     return render(request, "project.html", data)

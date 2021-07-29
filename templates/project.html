@@ -9,17 +9,36 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <h1 class="text-center alert">{{ project.name }}</h1>
+                        <!-- Группируем задачи по группам задач. Группы без задач не отображаются -->
+                        {% regroup tasks by group as groups %}
                         {% for group in groups %}
+                        <div class="col-lg-6 col-sm-12 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="text-center">{{ group.grouper.name }}</h4>
+                                    {{ group.grouper.description }}
+                                    <hr>
+                                    <ul class="list-group">
+                                        {% for task in tasks %}
+                                            {% if task.group_id == group.grouper.id %}
+                                            <li class="list-group-item">{{ task }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                    <br>
+                                    <h4 class="text-center"><a href="/task/{{ project.id }}/{{ group.grouper.id }}"><span class="badge bg-success">+</span></a></h4>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for group in empty_groups %}
                         <div class="col-lg-6 col-sm-12 mb-4">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="text-center">{{ group.name }}</h4>
                                     {{ group.description }}
                                     <hr>
-                                    ....
-                                    <br>
-
-                                    <h4 class="text-center"><a href="/task/{{ project.id }}/{{ group.id }}"><span class="badge bg-success">+</span></a></h4>
+                                    <h4 class="text-center"><a href="/task/{{ project.id }}/{{ group.grouper.id }}"><span class="badge bg-success">Добавить задачу</span></a></h4>
                                 </div>
                             </div>
                         </div>
@@ -27,7 +46,7 @@
                         <div class="col-lg-6 col-sm-12 mb-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="/taskgroup/{{ project.id }}"><button  class="form-control">Создать</button></a>
+                                    <a href="/taskgroup/{{ project.id }}"><button  class="form-control">Создать группу</button></a>
                                 </div>
                             </div>
                         </div>
