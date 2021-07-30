@@ -21,3 +21,11 @@ class TaskForm(forms.Form):
         super(TaskForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['class'] = 'form-control'
         self.fields['text'].widget.attrs['class'] = 'form-control'
+
+
+class ProjectForm(forms.Form):
+    name = forms.CharField(label="Название проекта")
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['class'] = 'form-control'

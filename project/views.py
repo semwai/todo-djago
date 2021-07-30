@@ -21,7 +21,7 @@ def index(request, id):
     tasks = Task.objects.filter(group__project_id=id)
     # Те группы, у которых нет своих задач
     empty_groups = TaskGroup.objects\
-        .filter(project__id=2)\
+        .filter(project__id=id)\
         .exclude(id__in=[task.group_id for task in Task.objects.all()])
     data = {"user": user,
             "project": project,

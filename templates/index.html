@@ -8,7 +8,7 @@
     <div class="col-lg-6 col-sm-12">
         {% if projects %}
         <h1 class="text-center alert">Ваши проекты</h1>
-        <ul class="list">
+        <ul class="list" style="padding-left: 0px;">
             {% for project in projects %}
             <a href="{{ project.get_absolute_url }}"><li class="list-group-item">{{ project }}</li></a>
             {% endfor %}
@@ -16,6 +16,7 @@
         {% else %}
             <h2 class="text-center">У вас нет активных проектов</h2>
         {% endif %}
+        <button class="form-control btn btn-primary">+</button>
     </div>
 </div>
 </div>
