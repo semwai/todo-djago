@@ -1,6 +1,7 @@
 from django import forms
 from base.models import Project
 
+
 class TaskGroupForm(forms.Form):
     name = forms.CharField(label="Название")
     description = forms.CharField(label="Описание", widget=forms.Textarea)
@@ -12,3 +13,11 @@ class TaskGroupForm(forms.Form):
         self.fields['description'].widget.attrs['class'] = 'form-control'
 
 
+class TaskForm(forms.Form):
+    name = forms.CharField(label="Название")
+    text = forms.CharField(label="Описание", widget=forms.Textarea)
+
+    def __init__(self, *args, **kwargs):
+        super(TaskForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['class'] = 'form-control'
+        self.fields['text'].widget.attrs['class'] = 'form-control'

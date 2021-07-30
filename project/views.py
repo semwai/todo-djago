@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.utils.datetime_safe import datetime
 from django.views.decorators.csrf import csrf_exempt
 
 from base.models import Project, UserGroup, TaskGroup, Task
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from .forms import TaskGroupForm
+from .forms import TaskGroupForm, TaskForm
 
 
 # Create your views here.
@@ -37,7 +38,11 @@ def task_group(request, project_id):
     if request.method == "POST":
         name = request.POST['name']
         description = request.POST['description']
-        task = TaskGroup.objects.create(name=name, description=description, project_id=project_id)
+        task = TaskGroup.objects.create(
+            name=name,
+            description=description,
+            project_id=project_id
+        )
         task.save()
         return HttpResponse("OK, <a href=/project/%s>back</a>" % project_id)
     else:
@@ -49,6 +54,18 @@ def task_group(request, project_id):
 @login_required(login_url='login')
 def task(request, project_id, group_id):
     if request.method == "POST":
-        pass
+        name = request.POST['name']
+        text = request.POST['text']
+        create_date = datetime.now()
+        author = request.user.id
+        task = Task.objects.create(
+            name=name,
+            text=text,
+            create_date=create_date,
+            author_id=author,
+            group_id=group_id
+        )
+        return HttpResponse("OK, <a href=/project/%s>back</a>" % project_id)
     else:
-        pass
+        form = TaskForm()
+        return render(request, "task.html", {"form": form})

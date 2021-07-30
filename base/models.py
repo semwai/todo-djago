@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
+from django.utils.datetime_safe import datetime
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
@@ -48,9 +49,12 @@ class TaskGroup(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=100)
     text = models.TextField()
-    create_date = models.DateField()
+    create_date = models.DateField(default=datetime.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey(TaskGroup, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+    def get_project_id(self):
+        pass
