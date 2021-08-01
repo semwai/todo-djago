@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 
+from project.forms import ProjectForm
 from .forms import LoginForm
 from .models import UserGroup, Project
 
@@ -16,7 +17,8 @@ def index(request):
         projects = [ug.project for ug in UserGroup.objects.filter(user_id=user.id)]
     except UserGroup.DoesNotExist:
         projects = None
-    return render(request, "index.html", {"user": user, "projects": projects})
+    form = ProjectForm()
+    return render(request, "index.html", {"user": user, "projects": projects, "form": form})
 
 
 @require_http_methods(["GET", "POST"])

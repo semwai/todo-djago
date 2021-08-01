@@ -16,7 +16,14 @@
         {% else %}
             <h2 class="text-center">У вас нет активных проектов</h2>
         {% endif %}
-        <button class="form-control btn btn-primary">+</button>
+        <form method="POST">
+            <h1>Создать проект</h1>
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="form-control btn btn-primary" value="Создать проект">
+        </form>
+
+
     </div>
 </div>
 </div>
